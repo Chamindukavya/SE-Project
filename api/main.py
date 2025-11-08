@@ -2,41 +2,20 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 from dotenv import load_dotenv
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-from mangum import Mangum 
 from langchain_openai import ChatOpenAI
-# from langchain.schema import AIMessage, HumanMessage
-from langchain_core.messages import AIMessage, HumanMessage
+from langchain.schema import AIMessage, HumanMessage
+# from langchain_core.messages import AIMessage, HumanMessage
 
 load_dotenv()
 
-cv_data = {}
-
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-try:
-    llm = ChatOpenAI(model="gpt-4o-mini", streaming=True)
-except Exception as e:
-    raise e
-
+llm = ChatOpenAI(model="gpt-4o-mini", streaming=True)
 
 class ChatRequest(BaseModel):
     messages: List[str]
-
-@app.get("/")
-def root():
-    return {"status": "ok"}
-
 
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
@@ -64,4 +43,3 @@ async def chat_endpoint(request: ChatRequest):
 
     return StreamingResponse(generate(), media_type="text/plain")
 
-handler = Mangum(app)
