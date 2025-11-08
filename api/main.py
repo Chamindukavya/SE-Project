@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from fastapi.responses import StreamingResponse
 
 from langchain_openai import ChatOpenAI
-from langchain.schema import AIMessage, HumanMessage
-# from langchain_core.messages import AIMessage, HumanMessage
+# from langchain.schema import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage
 
 load_dotenv()
 
