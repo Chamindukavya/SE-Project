@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-# from mangum import Mangum 
+from mangum import Mangum 
 from langchain_openai import ChatOpenAI
 # from langchain.schema import AIMessage, HumanMessage
 from langchain_core.messages import AIMessage, HumanMessage
@@ -64,4 +64,4 @@ async def chat_endpoint(request: ChatRequest):
 
     return StreamingResponse(generate(), media_type="text/plain")
 
-# handler = Mangum(app)
+handler = Mangum(app)
