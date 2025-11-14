@@ -4,5 +4,5 @@ langchain
 langchain-openai
 pydantic
 openai
-dotenv
+python-dotenv
 mangum
